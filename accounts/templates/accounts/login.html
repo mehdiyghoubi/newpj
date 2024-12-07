@@ -1,0 +1,13 @@
+{% extends '_base.html' %}
+{% block title %}
+	 ورود
+{% endblock %}
+{% block body %}
+    <form method="post">
+        {% csrf_token %}
+    {{ form.as_p }}
+{#        <input type="text" placeholder="Enter username..." name="user">#}
+{#        <input type="password" placeholder="Enter password" name="password">#}
+    <button type="submit">Login</button>
+    </form>
+{% endblock %}

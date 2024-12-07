@@ -1,0 +1,14 @@
+{% extends '_base.html' %}
+{% block title %}
+	صفحه اصلی
+{% endblock %}
+{% block body %}
+
+    {% for cat in category %}
+    	<a href="{{ cat.get_absolute_url }}">
+            <h1>{{ cat.name }}</h1>
+            <img src="{{ cat.image.url }}" width="200" alt="{{ cat.name }}">
+        </a>
+    {% endfor %}
+
+{% endblock %}

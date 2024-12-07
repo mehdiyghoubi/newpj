@@ -1,0 +1,30 @@
+{% extends '_base.html' %}
+{% block title %}
+{% endblock %}
+{% block body %}
+	<table>
+        <tr>
+            <th> نام کاربری : {{ profile.user.username }}</th>
+        </tr>
+        <tr>
+            <th>  نام : {{ profile.user.first_name }}</th>
+        </tr>
+        <tr>
+            <th> نام خانوادگی : {{ profile.user.last_name }}</th>
+        </tr>
+        <tr>
+            <th> پست الکترونیکی : {{ profile.user.email }}</th>
+        </tr>
+        <tr>
+            <th> تلفن : {{ profile.phone }}</th>
+        </tr>
+        <tr>
+            <th> آدرس : {{ profile.address}}</th>
+        </tr>
+    </table>
+    <a href="{% url 'accounts:update' %}" class="btn btn-primary">Update</a>
+    <a href="{% url 'accounts:change' %}" class="btn btn-danger">Change Password</a>
+{% endblock %}
+
+
+

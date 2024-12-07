@@ -1,0 +1,47 @@
+{% extends '_base.html' %}
+{% block body %}
+	<h1>{{ product.name }}</h1>
+    <img src="{{ product.image.url }}" width="200" alt="{{ product.name }}">
+    <p> تعداد مجودی : {{ product.amount }}</p>
+    <p> {{ product.information }}</p>
+    <hr>
+    {% if product.status %}
+        <form action="" method="post">
+        {% csrf_token %}
+        {% for data in variant %}
+            <input type="radio" value="{{ data.id }} {% if variants.id == data.id %} checked {% endif %}" name="select" onchange="this.form.submit()">
+            <a href="" style="text-decoration: none">{{ data.color.variant }}</a>
+        {% endfor %}
+        </form>
+    {% endif %}
+    <hr>
+    <p>محصولات مشابه</p>
+    {% for tag in similar  %}
+    	<a href="{% url 'home:details' tag.id %}">
+            <img src="{{ tag.image.url }}" width="200" alt="{{ tag.name }}">
+        </a>
+    {% endfor %}
+    <hr>
+    <p>like : {{ product.total_like }}</p>
+    <p>unlike : {{ product.total_unlike }}</p>
+    {% if request.user.is_authenticated %}
+    	{% if is_like %}
+            <a href="{% url 'home:product_like' product.id %}">
+                <i class="bi bi-hand-thumbs-up fs-2" style="color: skyblue"></i>
+            </a>
+        {% else %}
+            <a href="{% url 'home:product_like' product.id %}" class="btn {% if is_unlike %} disabled {% endif %} ">
+                <i class="bi bi-hand-thumbs-up-fill fs-2" style="color: skyblue"></i>
+            </a>
+        {% endif %}
+        {% if is_unlike %}
+            <a href="{% url 'home:product_unlike' product.id %}">
+                <i class="bi bi-hand-thumbs-down-fill fs-2" style="color: skyblue"></i>
+            </a>
+        {% else %}
+            <a href="{% url 'home:product_unlike' product.id %}" class="btn {% if is_like %} disabled {% endif %} ">
+                <i class="bi bi-hand-thumbs-down fs-2" style="color: skyblue"></i>
+            </a>
+        {% endif %}
+    {% endif %}
+{% endblock %}

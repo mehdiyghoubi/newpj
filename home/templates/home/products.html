@@ -1,0 +1,32 @@
+{% extends '_base.html' %}
+{% block body %}
+    {% for data in category %}
+    	<a href="{{ data.get_absolute_url }}" >{{ data.name }}</a>
+        <div class="btn-group">
+        <button type="button" class="btn btn-danger dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"></button>
+        <ul class="dropdown-menu">
+            {% for info in data.sub.all %}
+                <li><a class="dropdown-item" href="{{ info.get_absolute_url }}">{{ info.name }}</a> </li>
+            {% endfor %}
+        </ul>
+        </div>
+    {% endfor %}
+
+
+
+
+
+	{% for product in products %}
+		<h1> {{ product.name }}</h1>
+        <img src="{{ product.image.url }}" width="200" alt="{{ product.name }}" title="{{ product.name }}">
+        {% if product.discount %}
+            <h4 style="text-decoration: line-through">{{ product.unit_price }}</h4>
+            <h3>{{ product.total_price }}</h3>
+            {% else %}
+        	    <h3>{{ product.total_price }}</h3>
+        {% endif %}
+        <a href="{% url 'home:details' product.id%}" class="btn btn-primary">Details</a>
+        <p>==============================================================================</p>
+	{% endfor %}
+
+{% endblock %}
